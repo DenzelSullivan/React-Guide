@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import styled from 'styled-components';
 
-//Adding radium to allow the use of css sudo selector (button:hover)
-import Radium, { StyleRoot } from 'radium';
+const StyledButton = styled.button`
+  backgroundcolor: ${props => props.alt ? 'red' : 'green'};
+  fontcolor: white;
+  font: inherit;
+  border: 1x solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    backgroundColor: ${props => props.alt ? 'salmon' : 'lightgreen'};
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -46,19 +58,7 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      fontColor: 'white',
-      font: 'inherit',
-      border: '1x solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      // this is possible using radium
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
+
 
     let persons = null;
 
@@ -77,11 +77,11 @@ class App extends Component {
       );
 
       //dynamically changing style
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // style.backgroundColor = 'red';
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
     }
 
     // creating a list of class names and dynamically changing them
@@ -93,21 +93,19 @@ class App extends Component {
       classes.push('bold');
     }
 
-
     return (
-      //StyleRoot is used to allow the use of @media in person (Radium)
-      <StyleRoot>
-        <div className="App">
-          <h1> Hi, im a react app</h1>
-          <p className={classes.join(' ')}> This is really working</p>
-          <button
-            style={style}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1> Hi, im a react app</h1>
+        <p className={classes.join(' ')}> This is really working</p>
+        <StyledButton 
+          alt={this.state.showPersons} 
+          onClick={this.togglePersonsHandler}>
+          Toggle Persons
+        </StyledButton>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
