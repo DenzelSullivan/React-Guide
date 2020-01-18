@@ -7,11 +7,8 @@
     text-align: center;
 }
 
-
-/* 
-The style below will be applied using radium in the component file
-@media (min-width: 500p) {
+@media (min-width: 500px) {
     .Person{
         width: 450px;
     }
-} */
+} 

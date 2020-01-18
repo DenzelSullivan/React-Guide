@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from'./App.css';
 import Person from './Person/Person';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-  backgroundcolor: ${props => props.alt ? 'red' : 'green'};
-  fontcolor: white;
-  font: inherit;
-  border: 1x solid blue;
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    backgroundColor: ${props => props.alt ? 'salmon' : 'lightgreen'};
-    color: black;
-  }
-`;
 
 class App extends Component {
   state = {
@@ -58,9 +43,8 @@ class App extends Component {
   }
 
   render() {
-
-
     let persons = null;
+    let btnClass = '';
 
     if (this.state.showPersons) {
       persons = (
@@ -76,32 +60,26 @@ class App extends Component {
         </div>
       );
 
-      //dynamically changing style
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // }
+      btnClass = classes.Red;
     }
 
     // creating a list of class names and dynamically changing them
-    const classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1> Hi, im a react app</h1>
-        <p className={classes.join(' ')}> This is really working</p>
-        <StyledButton 
-          alt={this.state.showPersons} 
+        <p className={assignedClasses.join(' ')}> This is really working</p>
+        <button className={btnClass}
           onClick={this.togglePersonsHandler}>
           Toggle Persons
-        </StyledButton>
+        </button>
         {persons}
       </div>
     );
